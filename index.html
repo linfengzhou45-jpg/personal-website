@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#F5F4F0" />
+  <title>ZERO 初号 // AI Engineer · 个人网站</title>
+  <meta name="description" content="ZERO 初号 — AI 训练师 / AI 应用落地工程师。从LoRA微调到Agents应用，在真实业务里活下来。" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="./styles.css" />
+  <noscript>
+    <style>
+      .hero__h1, .hero [data-fade], [data-fade] { opacity: 1 !important; }
+      .scanline__track { animation: none !important; }
+    </style>
+  </noscript>
+
+  <!-- 安全网：保证首屏内容显示，不依赖 ES 模块 -->
+  <script>
+    (function () {
+      window.__heroOwned = false;
+      function reveal() {
+        if (window.__heroOwned) return;
+        var h1 = document.querySelector('.hero__h1');
+        if (h1) {
+          h1.classList.add('is-ready');
+          h1.style.opacity = '1';
+          h1.style.transform = 'none';
+        }
+        var els = document.querySelectorAll('.hero [data-fade], [data-fade]');
+        for (var i = 0; i < els.length; i++) {
+          els[i].style.opacity = '1';
+          els[i].style.transform = 'translateY(0)';
+        }
+      }
+      setTimeout(reveal, 600);
+      document.addEventListener('DOMContentLoaded', function () {
+        setTimeout(reveal, 1500);
+      });
+      window.__heroForceReveal = reveal;
+
+      /* 语言初始化（在 main.js 加载前先把 html lang 设好，防闪烁） */
+      var saved = null;
+      try { saved = localStorage.getItem('lang'); } catch (e) {}
+      if (saved === 'en' || saved === 'zh') {
+        document.documentElement.setAttribute('lang', saved);
+      }
+    })();
+  </script>
+</head>
+<body>
+
+<!-- ================== 左上固定 LOGO ================== -->
+<a href="#top" class="logo-fixed" aria-label="ZERO 初号 — Home">
+  ZERO<span class="dot">.</span> 初号
+</a>
+
+<!-- ================== 右上固定 CN/EN 切换 ================== -->
+<button class="lang-toggle" id="lang-toggle" type="button" aria-label="Toggle language">
+  <span class="lang-toggle__opt lang-toggle__cn">CN</span>
+  <span class="lang-toggle__sep">·</span>
+  <span class="lang-toggle__opt lang-toggle__en">EN</span>
+</button>
+
+<main id="top">
+
+<!-- ================== 1. HERO ================== -->
+<section class="hero" id="hero" aria-labelledby="hero-title">
+  <!-- 顶部 Marquee Scanline -->
+  <div class="hero__top">
+    <div class="scanline" aria-hidden="true">
+      <div class="scanline__track" data-marquee>
+        <span>TRAIN</span><span>DEPLOY</span><span>SHIP</span><span>ALIGN</span>
+        <span>训练</span><span>落地</span><span>上线</span><span>对齐</span>
+        <span>ZERO 初号</span><span>AI ENGINEER</span><span>BASED IN CHINA</span>
+        <span>2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 占位：未来插入抠图人像视频 + WebGL 电磁背景 -->
+  <div class="hero__media" aria-hidden="true" data-hero-media>
+    <!-- Wave 3：在此挂载 video + canvas -->
+  </div>
+
+  <!-- Hero 文字层 -->
+  <div class="hero__inner">
+    <span class="eyebrow hero__eyebrow" data-fade>
+      <span lang="zh">AI 训练师 × 落地工程师</span>
+      <span lang="en">AI Trainer × Production Engineer</span>
+    </span>
+
+    <h1 class="hero__h1" id="hero-title">ZERO 初号</h1>
+
+    <p class="hero__sub" data-fade>
+      <span lang="zh">
+        ZERO 初号 — AI 训练师 / 应用落地工程师。<br/>
+        从 notebook 到 production，让模型在真实业务里 <span class="kw">活下来</span>。
+      </span>
+      <span lang="en">
+        ZERO — AI Trainer & Production Engineer.<br/>
+        From notebook to production, helping models <span class="kw">survive</span> the real world.
+      </span>
+    </p>
+
+    <div class="hero__ctas" data-fade>
+      <a href="#work" class="btn" id="hero-cta">
+        <span lang="zh">查看作品</span>
+        <span lang="en">Selected Work</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a href="#contact" class="btn btn--ghost">
+        <span lang="zh">来聊聊</span>
+        <span lang="en">Get in touch</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================== 2. ZHOU FRAMEWORK ================== -->
+<section class="zhou" id="zhou" aria-labelledby="zhou-title">
+  <div class="zhou__bg" aria-hidden="true" data-zhou-grid>
+    <!-- Wave 2：网格点 + 鼠标 spotlight 由 JS 注入 -->
+  </div>
+
+  <div class="container">
+    <header class="zhou__head">
+      <span class="section-eyebrow" data-fade>
+        <span lang="zh">ZHOU 工作框架</span>
+        <span lang="en">The ZHOU Framework</span>
+      </span>
+      <h2 class="section-title" id="zhou-title" data-split-words>
+        <span lang="zh">关于 <span class="kw">我</span></span>
+        <span lang="en">About <span class="kw">Me</span></span>
+      </h2>
+      <p class="section-lead" data-reveal>
+        <span lang="zh">过去几年我把工作方法浓缩成 4 个字母 —— 也就是我名字的拼音首字母 ZHOU。每个字母背后是一种工作姿态，串起来就是我做 AI 的方式。</span>
+        <span lang="en">I distilled my approach into the four letters of my name — ZHOU. Each letter is a working posture; together, they describe how I build AI.</span>
+      </p>
+      <p class="zhou__hint" data-fade>
+        <span lang="zh">/ 鼠标悬停字母揭示 →</span>
+        <span lang="en">/ Hover any letter to reveal →</span>
+      </p>
+    </header>
+
+    <ol class="zhou-list">
+      <li class="zhou-row" data-zhou>
+        <div class="zhou-row__char">Z</div>
+        <div class="zhou-row__body">
+          <div class="zhou-row__num">/ 01</div>
+          <h3 class="zhou-row__title">
+            Zenith
+            <span lang="zh" class="zh">巅峰</span>
+            <span lang="en" class="zh">Highest bar</span>
+          </h3>
+          <p class="zhou-row__quote">"If it's not the best version I can make today — why ship?"</p>
+          <p class="zhou-row__body-text">
+            <span lang="zh">设计、AI、工程，三件事都不接受"差不多就行"。每次交付前我都问自己一遍：这个版本，是不是我此刻能力的上限？不是的话 —— 别交。</span>
+            <span lang="en">Design, AI, engineering — none of them get "good enough." Before every ship I ask: is this the ceiling of what I can do today? If no, don't ship it yet.</span>
+          </p>
+        </div>
+      </li>
+
+      <li class="zhou-row" data-zhou>
+        <div class="zhou-row__char">H</div>
+        <div class="zhou-row__body">
+          <div class="zhou-row__num">/ 02</div>
+          <h3 class="zhou-row__title">
+            Hybrid
+            <span lang="zh" class="zh">杂食</span>
+            <span lang="en" class="zh">Cross-discipline</span>
+          </h3>
+          <p class="zhou-row__quote">"Best ideas live in the gaps between disciplines."</p>
+          <p class="zhou-row__body-text">
+            <span lang="zh">我做设计、训练 AI、写代码 —— 不是贪心，是因为这三件事在 AI 时代已经分不开了。懂模型局限的设计师、感受过 200ms 延迟的工程师、知道自己怎么被用的 AI —— 这才是真产品。</span>
+            <span lang="en">I do design, train AI, and write code. Not out of greed — these three are inseparable in the AI era. Designers who feel model limits, engineers who feel 200ms of latency, AI that knows how it's used — that's a real product.</span>
+          </p>
+        </div>
+      </li>
+
+      <li class="zhou-row" data-zhou>
+        <div class="zhou-row__char">O</div>
+        <div class="zhou-row__body">
+          <div class="zhou-row__num">/ 03</div>
+          <h3 class="zhou-row__title">
+            Optimizer
+            <span lang="zh" class="zh">迭代</span>
+            <span lang="en" class="zh">Iterate</span>
+          </h3>
+          <p class="zhou-row__quote">"First version doesn't ship. Twentieth might."</p>
+          <p class="zhou-row__body-text">
+            <span lang="zh">Prompt、模型、UI、流程 —— 第一次做出来的样子从来不是最终的样子。我喜欢看一个东西从"能跑"变"好用"，再变"离不开"。每一次迭代都是一次小小的升级。</span>
+            <span lang="en">Prompts, models, UIs, workflows — the first version is never the final version. I love watching something go from "works" to "useful" to "essential." Every iteration is a small leveling-up.</span>
+          </p>
+        </div>
+      </li>
+
+      <li class="zhou-row" data-zhou>
+        <div class="zhou-row__char">U</div>
+        <div class="zhou-row__body">
+          <div class="zhou-row__num">/ 04</div>
+          <h3 class="zhou-row__title">
+            Unifier
+            <span lang="zh" class="zh">整合</span>
+            <span lang="en" class="zh">Stitch together</span>
+          </h3>
+          <p class="zhou-row__quote">"Ten good tools beat one perfect tool — if they speak to each other."</p>
+          <p class="zhou-row__body-text">
+            <span lang="zh">单点最优不如系统呼吸。我做的事就是让 Cursor、Claude Code、Linear、Figma、Eval 平台 —— 这些零散工具之间的胶水代码不会松脱。把分散技能拼成一个能跑的体系，比把任何一项做到极致更难。</span>
+            <span lang="en">A breathing system beats a single perfect tool. My job is making sure the glue between Cursor, Claude Code, Linear, Figma, eval platforms doesn't come apart. Stitching scattered skills into one working system is harder than maxing out any single one.</span>
+          </p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================== 3. WORK (Pin 横向滚动看板) ================== -->
+<section class="work" id="work" aria-labelledby="work-title">
+  <header class="work__head container">
+    <div class="work__head-text">
+      <span class="section-eyebrow" data-fade>
+        <span lang="zh">精选作品 · 2024 — 2026</span>
+        <span lang="en">Selected Work · 2024 — 2026</span>
+      </span>
+      <h2 class="section-title" id="work-title" data-split-words>
+        <span lang="zh">作品 · <span class="kw">Work</span></span>
+        <span lang="en"><span class="kw">Work</span> · 作品</span>
+      </h2>
+    </div>
+
+    <div class="work__progress" data-rail-progress aria-hidden="true">
+      <div class="work__progress-counter">
+        <span class="work__progress-cur">01</span>
+        <span class="work__progress-sep">/</span>
+        <span class="work__progress-total">05</span>
+      </div>
+      <span class="work__progress-line"><span data-rail-bar></span></span>
+    </div>
+  </header>
+
+  <div class="work__stage" data-work-rail>
+    <ol class="work__deck" data-work-deck>
+      <!-- 01 — AutoGen iOS Dev Team -->
+      <li class="work-card" data-work>
+        <div class="work-card__num">01</div>
+        <div class="work-card__media">
+          <img alt="AutoGen multi-agent dev team" src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=540&q=80&auto=format&fit=crop" />
+        </div>
+        <div class="work-card__title-en">AutoGen Multi-Agent Dev Team</div>
+        <h3 class="work-card__title">
+          <span lang="zh">AutoGen 多 Agent iOS 开发协作</span>
+          <span lang="en">AutoGen iOS Dev Team</span>
+        </h3>
+        <p class="work-card__desc">
+          <span lang="zh">基于 AutoGen 编排 4 个 Agent 协作开发 iOS 应用：Planner 拆任务、Developer 写代码、Reviewer 审查、Tester 跑测试。每个角色配不同模型，平衡成本与能力。</span>
+          <span lang="en">A 4-agent AutoGen system for iOS dev: Planner decomposes, Developer codes, Reviewer audits, Tester verifies. Each agent runs a different model — cost vs. capability tuned per role.</span>
+        </p>
+        <ul class="work-card__tags">
+          <li class="tag tag--accent">2025</li><li class="tag">AutoGen</li><li class="tag">Multi-Agent</li>
+        </ul>
+      </li>
+
+      <!-- 02 — FitAI -->
+      <li class="work-card" data-work>
+        <div class="work-card__num">02</div>
+        <div class="work-card__media">
+          <img alt="FitAI vision-powered diet tracker" src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=540&q=80&auto=format&fit=crop" />
+        </div>
+        <div class="work-card__title-en">FitAI · Vision-Powered Diet Tracker</div>
+        <h3 class="work-card__title">
+          <span lang="zh">FitAI · 饮食追踪 AI 应用</span>
+          <span lang="en">FitAI · Diet-Tracking AI App</span>
+        </h3>
+        <p class="work-card__desc">
+          <span lang="zh">iOS SwiftUI 饮食追踪：Vision API 识别食物、营养标签 OCR、AI 饮食建议。SwiftData 持久化，1814 条食物本地数据库。</span>
+          <span lang="en">iOS SwiftUI diet tracker: vision-API food recognition, nutrition-label OCR, AI dietary advice. SwiftData persistence with a 1,814-item local food database.</span>
+        </p>
+        <ul class="work-card__tags">
+          <li class="tag tag--accent">2025</li><li class="tag">iOS</li><li class="tag">Vision API</li><li class="tag">SwiftData</li>
+        </ul>
+      </li>
+
+      <!-- 03 — DiaryApp + diary-mcp -->
+      <li class="work-card" data-work>
+        <div class="work-card__num">03</div>
+        <div class="work-card__media">
+          <img alt="AI-controlled diary app via MCP" src="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=540&q=80&auto=format&fit=crop" />
+        </div>
+        <div class="work-card__title-en">DiaryApp × MCP — AI-Controlled Journal</div>
+        <h3 class="work-card__title">
+          <span lang="zh">AI 操控的日记应用 + MCP Server</span>
+          <span lang="en">AI-Controlled Diary × MCP Server</span>
+        </h3>
+        <p class="work-card__desc">
+          <span lang="zh">macOS 原生 SwiftUI 日记 + 自研 MCP Server。应用本体只负责存储与日历 UI；外部 AI Agent 通过 MCP 协议远程读写。把"应用"和"AI 大脑"彻底解耦。</span>
+          <span lang="en">A native macOS SwiftUI diary paired with a custom MCP server. The app handles storage & calendar UI; an external AI agent drives reads/writes over MCP — cleanly decoupling "the app" from "the brain."</span>
+        </p>
+        <ul class="work-card__tags">
+          <li class="tag tag--accent">2025</li><li class="tag">SwiftUI</li><li class="tag">MCP</li><li class="tag">Agent</li>
+        </ul>
+      </li>
+
+      <!-- 04 — TranslatePopup -->
+      <li class="work-card" data-work>
+        <div class="work-card__num">04</div>
+        <div class="work-card__media">
+          <img alt="TranslatePopup macOS menu-bar tool" src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=540&q=80&auto=format&fit=crop" />
+        </div>
+        <div class="work-card__title-en">TranslatePopup · Selection Translator</div>
+        <h3 class="work-card__title">
+          <span lang="zh">沉浸式翻译 · macOS 菜单栏工具</span>
+          <span lang="en">Selection-Driven Translator</span>
+        </h3>
+        <p class="work-card__desc">
+          <span lang="zh">macOS 菜单栏应用，选中英文即时弹窗翻译。无需切换应用、不占 Dock。浮动窗口可拖动，开机自启 —— 一个能直接装上就用的小工具产品。</span>
+          <span lang="en">A macOS menu-bar app: select any English text and an instant translation pops up. No app-switching, no Dock footprint. Draggable floater, launch-at-login — a small tool that ships.</span>
+        </p>
+        <ul class="work-card__tags">
+          <li class="tag">2024</li><li class="tag">macOS</li><li class="tag">SwiftUI</li><li class="tag">Tool</li>
+        </ul>
+      </li>
+
+      <!-- 05 — Digital Park -->
+      <li class="work-card" data-work>
+        <div class="work-card__num">05</div>
+        <div class="work-card__media">
+          <img alt="Digital Park smart-park platform" src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=540&q=80&auto=format&fit=crop" />
+        </div>
+        <div class="work-card__title-en">Digital Park · Smart Park Platform</div>
+        <h3 class="work-card__title">
+          <span lang="zh">智慧园区管理系统</span>
+          <span lang="en">Smart Park Platform</span>
+        </h3>
+        <p class="work-card__desc">
+          <span lang="zh">基于 RuoYi 二开的企业级智慧园区平台。Spring Boot 4 + Vue3 + 小程序三端，覆盖招商、物业、权限、字典、定时任务、代码生成的完整业务模块。</span>
+          <span lang="en">Enterprise smart-park platform forked from RuoYi. Spring Boot 4 + Vue3 + WeChat mini-program — investment, property, RBAC, scheduling, code-gen — the full B-side stack.</span>
+        </p>
+        <ul class="work-card__tags">
+          <li class="tag">2025</li><li class="tag">Spring Boot</li><li class="tag">Vue3</li><li class="tag">Enterprise</li>
+        </ul>
+      </li>
+    </ol>
+  </div>
+
+  <div class="work__buttons container">
+    <button class="work__btn work__btn--prev" type="button" aria-label="Previous" data-rail-prev>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+      <span class="work__btn-label">
+        <span lang="zh">上一个</span>
+        <span lang="en">Prev</span>
+      </span>
+    </button>
+    <button class="work__btn work__btn--next" type="button" aria-label="Next" data-rail-next>
+      <span class="work__btn-label">
+        <span lang="zh">下一个</span>
+        <span lang="en">Next</span>
+      </span>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- ================== 4. CAPABILITIES (垂直卡片叠加) ================== -->
+<section class="cap" id="cap" aria-labelledby="cap-title">
+  <div class="container">
+    <header class="cap__head">
+      <span class="section-eyebrow" data-fade>
+        <span lang="zh">能做什么</span>
+        <span lang="en">What I Can Do</span>
+      </span>
+      <h2 class="section-title" id="cap-title" data-split-words>
+        <span lang="zh">能力 · <span class="kw">Capabilities</span></span>
+        <span lang="en"><span class="kw">Capabilities</span> · 能力</span>
+      </h2>
+    </header>
+  </div>
+
+  <!-- 垂直卡片堆栈（Wave 2 接管：scroll-driven 叠加效果） -->
+  <div class="cap-stack" data-cap-stack>
+    <article class="cap-card" data-cap data-cap-i="0">
+      <div class="cap-card__head">
+        <span class="cap-card__num">/ 01</span>
+        <span class="cap-card__cat">
+          <span lang="zh">训练 / 微调</span>
+          <span lang="en">Training</span>
+        </span>
+      </div>
+      <h3 class="cap-card__title">
+        <span lang="zh">训练 & 微调 — 把数据变成可用的模型</span>
+        <span lang="en">Training & Fine-tuning — Turn data into usable models</span>
+      </h3>
+      <p class="cap-card__desc">
+        <span lang="zh">数据清洗 → SFT → DPO → LoRA / QLoRA 全流程。Reward Model 与自动化 Eval 流水线。从 7B 到 70B 都跑过。</span>
+        <span lang="en">Data cleaning → SFT → DPO → LoRA / QLoRA. Reward model + automated eval pipeline. Have shipped 7B to 70B.</span>
+      </p>
+      <ul class="cap-card__chips">
+        <li class="tag">PyTorch</li><li class="tag">DeepSpeed</li><li class="tag">Axolotl</li><li class="tag">Unsloth</li>
+      </ul>
+    </article>
+
+    <article class="cap-card" data-cap data-cap-i="1">
+      <div class="cap-card__head">
+        <span class="cap-card__num">/ 02</span>
+        <span class="cap-card__cat">
+          <span lang="zh">推理 / 部署</span>
+          <span lang="en">Deployment</span>
+        </span>
+      </div>
+      <h3 class="cap-card__title">
+        <span lang="zh">推理优化 & 上线 — 让 70B 跑在一张卡上</span>
+        <span lang="en">Inference & Deploy — 70B on a single card</span>
+      </h3>
+      <p class="cap-card__desc">
+        <span lang="zh">推理优化、量化（GPTQ / AWQ / FP8）、vLLM / SGLang / TGI 部署、K8s 与 GPU 调度、可观测告警。</span>
+        <span lang="en">Inference optimization, quantization (GPTQ / AWQ / FP8), vLLM / SGLang / TGI deploy, K8s + GPU scheduling, full observability.</span>
+      </p>
+      <ul class="cap-card__chips">
+        <li class="tag">vLLM</li><li class="tag">SGLang</li><li class="tag">Triton</li><li class="tag">K8s</li>
+      </ul>
+    </article>
+
+    <article class="cap-card" data-cap data-cap-i="2">
+      <div class="cap-card__head">
+        <span class="cap-card__num">/ 03</span>
+        <span class="cap-card__cat">
+          <span lang="zh">应用架构</span>
+          <span lang="en">Architecture</span>
+        </span>
+      </div>
+      <h3 class="cap-card__title">
+        <span lang="zh">AI 应用架构 — RAG / Agent / Tool-use 端到端设计</span>
+        <span lang="en">AI App Architecture — End-to-end RAG / Agent / Tool-use</span>
+      </h3>
+      <p class="cap-card__desc">
+        <span lang="zh">向量库选型 → reranking pipeline → 生产监控告警。Agent 编排与工作流，让 LLM 真正解决业务。</span>
+        <span lang="en">Vector store selection → reranking pipeline → production monitoring. Agent orchestration and workflows that solve real business problems.</span>
+      </p>
+      <ul class="cap-card__chips">
+        <li class="tag">RAG</li><li class="tag">Agent</li><li class="tag">LangGraph</li><li class="tag">Eval</li>
+      </ul>
+    </article>
+
+    <article class="cap-card" data-cap data-cap-i="3">
+      <div class="cap-card__head">
+        <span class="cap-card__num">/ 04</span>
+        <span class="cap-card__cat">
+          <span lang="zh">技术咨询</span>
+          <span lang="en">Consulting</span>
+        </span>
+      </div>
+      <h3 class="cap-card__title">
+        <span lang="zh">技术咨询 — 让 AI 项目不再"demo 完就停"</span>
+        <span lang="en">Tech Consulting — Get past the demo wall</span>
+      </h3>
+      <p class="cap-card__desc">
+        <span lang="zh">模型选型、架构 audit、Production Review。给团队做诊断、立标准、写 playbook。</span>
+        <span lang="en">Model selection, architecture audits, production reviews. Diagnostics, standards, playbooks for teams.</span>
+      </p>
+      <ul class="cap-card__chips">
+        <li class="tag">Audit</li><li class="tag">Strategy</li><li class="tag">Playbook</li>
+      </ul>
+    </article>
+
+    <p class="cap-stack__hint" data-fade>
+      <span lang="zh">/ 滚动鼠标滚轮翻动卡片 ↕</span>
+      <span lang="en">/ Scroll to flip through ↕</span>
+    </p>
+  </div>
+</section>
+
+<!-- ================== 5. STACK ================== -->
+<section class="stack" id="stack" aria-labelledby="stack-title">
+  <div class="container">
+    <header class="stack__head">
+      <span class="section-eyebrow" data-fade>
+        <span lang="zh">日常合作伙伴</span>
+        <span lang="en">Stack · Collaborators</span>
+      </span>
+      <h2 class="section-title" id="stack-title" data-split-words>
+        <span lang="zh">用什么 <span class="kw">在做</span></span>
+        <span lang="en">Built <span class="kw">with</span></span>
+      </h2>
+    </header>
+
+    <div class="stack-grid">
+      <div class="stack-cell">
+        <span class="stack-cell__cat">
+          <span lang="zh">模型</span>
+          <span lang="en">Models</span>
+        </span>
+        <ul class="stack-cell__list">
+          <li>Claude</li><li>GPT</li><li>Gemini</li><li>Llama</li><li>Qwen</li>
+        </ul>
+      </div>
+      <div class="stack-cell">
+        <span class="stack-cell__cat">
+          <span lang="zh">推理</span>
+          <span lang="en">Inference</span>
+        </span>
+        <ul class="stack-cell__list">
+          <li>vLLM</li><li>SGLang</li><li>TGI</li><li>Triton</li>
+        </ul>
+      </div>
+      <div class="stack-cell">
+        <span class="stack-cell__cat">
+          <span lang="zh">训练</span>
+          <span lang="en">Training</span>
+        </span>
+        <ul class="stack-cell__list">
+          <li>PyTorch</li><li>DeepSpeed</li><li>Axolotl</li><li>Unsloth</li>
+        </ul>
+      </div>
+      <div class="stack-cell">
+        <span class="stack-cell__cat">
+          <span lang="zh">工具</span>
+          <span lang="en">Tools</span>
+        </span>
+        <ul class="stack-cell__list">
+          <li>Cursor</li><li>Claude Code</li><li>Linear</li><li>Notion</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================== 6. WRITING (新增) ================== -->
+<section class="writing" id="writing" aria-labelledby="writing-title">
+  <div class="container">
+    <header class="writing__head">
+      <span class="section-eyebrow" data-fade>
+        <span lang="zh">最近的笔记</span>
+        <span lang="en">Recent Notes</span>
+      </span>
+      <h2 class="section-title" id="writing-title" data-split-words>
+        <span lang="zh">文章 · <span class="kw">Writing</span></span>
+        <span lang="en"><span class="kw">Writing</span> · 文章</span>
+      </h2>
+    </header>
+
+    <ol class="writing-list">
+      <li class="writing-item">
+        <a href="#" class="writing-link">
+          <span class="writing-link__date">2026 / 04</span>
+          <span class="writing-link__title">
+            <span lang="zh">把一个 7B 模型微调到能用 — 我犯过的 5 个错</span>
+            <span lang="en">Fine-tuning a 7B model into something usable — five mistakes I made</span>
+          </span>
+          <span class="writing-link__tags"><span class="tag">Fine-tune</span> <span class="tag">Lessons</span></span>
+          <svg class="writing-link__arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+        </a>
+      </li>
+      <li class="writing-item">
+        <a href="#" class="writing-link">
+          <span class="writing-link__date">2026 / 03</span>
+          <span class="writing-link__title">
+            <span lang="zh">Production RAG 不是 Pinecone + GPT-4 —— 真正在跑的系统长什么样</span>
+            <span lang="en">Production RAG is not Pinecone + GPT-4 — what a real running system actually looks like</span>
+          </span>
+          <span class="writing-link__tags"><span class="tag">RAG</span> <span class="tag">Architecture</span></span>
+          <svg class="writing-link__arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+        </a>
+      </li>
+      <li class="writing-item">
+        <a href="#" class="writing-link">
+          <span class="writing-link__date">2026 / 02</span>
+          <span class="writing-link__title">
+            <span lang="zh">Eval 是脚手架，不是装饰 —— 一份能让团队复用的评测协议</span>
+            <span lang="en">Eval is scaffolding, not decoration — a reusable team protocol</span>
+          </span>
+          <span class="writing-link__tags"><span class="tag">Eval</span> <span class="tag">Practice</span></span>
+          <svg class="writing-link__arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+        </a>
+      </li>
+      <li class="writing-item">
+        <a href="#" class="writing-link">
+          <span class="writing-link__date">2026 / 01</span>
+          <span class="writing-link__title">
+            <span lang="zh">From Prompt to Pipeline —— 让 LLM 应用工程化的 7 个习惯</span>
+            <span lang="en">From Prompt to Pipeline — 7 habits that turn LLM apps into engineering</span>
+          </span>
+          <span class="writing-link__tags"><span class="tag">Engineering</span></span>
+          <svg class="writing-link__arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+        </a>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================== 7. CONTACT ================== -->
+<section class="contact" id="contact" aria-labelledby="contact-title">
+  <!-- 占位：未来插入马赛克 reveal 视频 -->
+  <div class="contact__media" aria-hidden="true" data-contact-media>
+    <!-- Wave 3：在此挂载视频 + mosaic mask -->
+  </div>
+
+  <div class="contact__inner">
+    <div class="contact__left">
+      <span class="section-eyebrow" data-fade>
+        <span lang="zh">来一起搞点</span>
+        <span lang="en">Let's Build</span>
+      </span>
+      <h2 class="contact__title" id="contact-title">
+        <span lang="zh">做点 <span class="contact__title-sharp" id="contact-sharp">真东西</span>。</span>
+        <span lang="en">Let's build something <span class="contact__title-sharp" id="contact-sharp-en">SHARP</span>.</span>
+      </h2>
+      <p class="contact__sub" data-reveal>
+        <span lang="zh">做模型、落地、咨询，或者只想喝杯咖啡聊聊 —— 写信给我。</span>
+        <span lang="en">Modeling, shipping, consulting, or just coffee — drop me a line.</span>
+      </p>
+    </div>
+
+    <ul class="contact-list">
+      <li class="contact-list__item">
+        <span class="contact-list__label">Gmail</span>
+        <a href="mailto:linfengzhou45@gmail.com" class="contact-list__value" id="contact-cta">linfengzhou45@gmail.com</a>
+      </li>
+      <li class="contact-list__item">
+        <span class="contact-list__label">QQ</span>
+        <a href="mailto:631157084@qq.com" class="contact-list__value">631157084@qq.com</a>
+      </li>
+      <li class="contact-list__item">
+        <span class="contact-list__label">
+          <span lang="zh">电话</span>
+          <span lang="en">Phone</span>
+        </span>
+        <a href="tel:+8615779149369" class="contact-list__value">+86 157 7914 9369</a>
+      </li>
+      <li class="contact-list__item">
+        <span class="contact-list__label">
+          <span lang="zh">微信</span>
+          <span lang="en">WeChat</span>
+        </span>
+        <span class="contact-list__value">—</span>
+      </li>
+      <li class="contact-list__item">
+        <span class="contact-list__label">GitHub</span>
+        <a href="https://github.com/" class="contact-list__value" target="_blank" rel="noreferrer">—</a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<!-- ================== FOOTER ================== -->
+<footer class="footer">
+  <div class="container footer__inner">
+    <span class="footer__logo">L.F<span class="dot">.</span> ZHOU</span>
+    <span>© 2026 周连锋 · BUILT WITH CARE</span>
+    <span>
+      <span lang="zh">致谢：结构灵感来自 alaric.it.com</span>
+      <span lang="en">Inspired by alaric.it.com</span>
+    </span>
+  </div>
+</footer>
+
+<!-- Vendor scripts —— Lenis 已移除，原生滚动响应更直接 -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+
+<script type="module" src="./main.js"></script>
+</body>
+</html>
