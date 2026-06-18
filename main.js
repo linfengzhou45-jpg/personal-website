@@ -1108,42 +1108,6 @@ function initHeroInkReveal() {
   });
 }
 
-/* ============================================================
-   TOPBAR BRIDGE — 滚动进度条 + section 文字切换
-   ============================================================ */
-function initTopbarBridge() {
-  const bar = document.getElementById('topbar-progress-bar');
-  const texts = document.querySelectorAll('.topbar-bridge__text');
-  if (!bar) return;
-
-  const sectionIds = ['hero', 'zhou', 'work', 'cap', 'stack', 'contact'];
-  const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
-
-  function update() {
-    const scrollTop = window.scrollY;
-    const docH = document.documentElement.scrollHeight - window.innerHeight;
-    bar.style.width = docH > 0 ? Math.min(scrollTop / docH * 100, 100) + '%' : '0%';
-
-    const offset = 200;
-    let curIdx = 0;
-    for (let i = 0; i < sections.length; i++) {
-      if (sections[i].getBoundingClientRect().top <= offset) curIdx = i;
-    }
-    texts.forEach((t, i) => {
-      t.classList.toggle('is-visible', i === curIdx);
-    });
-  }
-
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => { update(); ticking = false; });
-      ticking = true;
-    }
-  }, { passive: true });
-  update();
-}
-
 async function boot() {
   /* 1. 先从 content.js 渲染所有 section（在任何 init 之前重建 DOM） */
   await renderContent();
@@ -1152,7 +1116,6 @@ async function boot() {
   initLangToggle();
   initMarquee();
   initHeroInkReveal();
-  initTopbarBridge();
 
   /* Work 看板不依赖 vendor（纯 CSS 3D + state），随时可启 */
   initWorkRail();
