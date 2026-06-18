@@ -790,9 +790,11 @@ body.menu-open .menu-overlay {
   display: block;
   width: clamp(320px, 28vw, 440px);
   padding: 28px 28px 32px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 0;
+  background: rgba(245, 244, 240, 0.82);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
   transform-origin: center center;
   backface-visibility: hidden;
   transition:
@@ -825,7 +827,7 @@ body.menu-open .menu-overlay {
   opacity: 0;
 }
 .work-card.is-current {
-  border-color: var(--accent);
+  border-color: rgba(255, 90, 31, 0.4);
   box-shadow: 0 28px 60px -20px rgba(10, 10, 10, 0.22),
               0 12px 30px -12px rgba(255, 90, 31, 0.12);
   cursor: default;
@@ -854,6 +856,7 @@ body.menu-open .menu-overlay {
   margin-bottom: 22px;
   filter: saturate(0.7);
   transition: filter 600ms var(--ease-out-expo);
+  border-radius: 6px;
 }
 .work-card.is-current .work-card__media { filter: saturate(1); }
 .work-card__media img { width: 100%; height: 100%; object-fit: cover; }
@@ -891,10 +894,12 @@ body.menu-open .menu-overlay {
   align-items: center;
   gap: 12px;
   padding: 14px 24px;
-  background: transparent;
+  background: rgba(245, 244, 240, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   color: var(--ink);
   border: 1px solid var(--line-strong);
-  border-radius: 0;
+  border-radius: 6px;
   font: 500 13px/1 var(--font-mono);
   letter-spacing: 0.16em;
   text-transform: uppercase;
