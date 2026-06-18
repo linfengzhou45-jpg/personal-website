@@ -164,6 +164,13 @@
 
 <!-- ================== 2. ZHOU FRAMEWORK ================== -->
 <section class="zhou" id="zhou" aria-labelledby="zhou-title">
+  <div class="zhou__ink-stage" aria-hidden="true">
+    <div class="zhou__ink-sticky">
+      <div class="zhou__ink-bg"></div>
+      <canvas class="zhou__ink-mask" id="zhouMask"></canvas>
+    </div>
+  </div>
+
   <div class="zhou__bg" aria-hidden="true" data-zhou-grid>
     <!-- Wave 2：网格点 + 鼠标 spotlight 由 JS 注入 -->
   </div>
@@ -181,10 +188,6 @@
       <p class="section-lead" data-reveal>
         <span lang="zh">过去几年我把工作方法浓缩成 4 个字母 —— 也就是我名字的拼音首字母 ZHOU。每个字母背后是一种工作姿态，串起来就是我做 AI 的方式。</span>
         <span lang="en">I distilled my approach into the four letters of my name — ZHOU. Each letter is a working posture; together, they describe how I build AI.</span>
-      </p>
-      <p class="zhou__hint" data-fade>
-        <span lang="zh">/ 鼠标悬停字母揭示 →</span>
-        <span lang="en">/ Hover any letter to reveal →</span>
       </p>
     </header>
 
@@ -693,10 +696,6 @@
   <div class="container footer__inner">
     <span class="footer__logo">L.F<span class="dot">.</span> ZHOU</span>
     <span>© 2026 周连锋 · BUILT WITH CARE</span>
-    <span>
-      <span lang="zh">致谢：结构灵感来自 alaric.it.com</span>
-      <span lang="en">Inspired by alaric.it.com</span>
-    </span>
   </div>
 </footer>
 

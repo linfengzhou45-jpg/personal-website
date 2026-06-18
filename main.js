@@ -981,13 +981,11 @@ function initSmoothScroll() {
    Boot
    ============================================================ */
 /* ============================================================
-   HERO 墨迹刮开效果（照搬 MiMo Code 方案）
+   墨迹刮开效果
    Canvas 遮罩 + destination-out 打洞，墨点不规则边缘 + 扩散 + 淡出
    ============================================================ */
-function initHeroInkReveal() {
-  const hero = document.getElementById('hero');
-  const canvas = document.getElementById('heroMask');
-  if (!hero || !canvas) return;
+function createInkReveal(section, canvas, sizeTarget = section) {
+  if (!section || !canvas) return;
 
   const canHover = window.matchMedia('(hover: hover)').matches;
   if (!canHover) return;
@@ -1007,7 +1005,7 @@ function initHeroInkReveal() {
   let w = 0, h = 0;
 
   function resize() {
-    const rect = hero.getBoundingClientRect();
+    const rect = sizeTarget.getBoundingClientRect();
     w = rect.width;
     h = rect.height;
     canvas.width = Math.round(w * DPR);
@@ -1098,24 +1096,49 @@ function initHeroInkReveal() {
     if (!running) { running = true; requestAnimationFrame(loop); }
   }
 
-  hero.addEventListener('mouseenter', (e) => {
-    const rect = hero.getBoundingClientRect();
+  section.addEventListener('mouseenter', (e) => {
+    const rect = canvas.getBoundingClientRect();
     lastX = e.clientX - rect.left;
     lastY = e.clientY - rect.top;
     stampAlong(lastX, lastY);
     start();
   });
 
-  hero.addEventListener('mousemove', (e) => {
-    const rect = hero.getBoundingClientRect();
+  section.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
     stampAlong(e.clientX - rect.left, e.clientY - rect.top);
     start();
   });
 
-  hero.addEventListener('mouseleave', () => {
+  section.addEventListener('mouseleave', () => {
     lastX = null;
     lastY = null;
   });
+}
+
+/* 首页保持原有独立入口，避免新增 section 影响首屏。 */
+function initHeroInkReveal() {
+  createInkReveal(
+    document.getElementById('hero'),
+    document.getElementById('heroMask'),
+    document.getElementById('hero'),
+  );
+}
+
+/* 关于我使用独立 canvas、事件和动画状态。 */
+function initAboutInkReveal() {
+  const section = document.getElementById('zhou');
+  const canvas = document.getElementById('zhouMask');
+  createInkReveal(
+    section,
+    canvas,
+    canvas?.parentElement,
+  );
+}
+
+function initInkReveals() {
+  initHeroInkReveal();
+  initAboutInkReveal();
 }
 
 /* ============================================================
@@ -1182,7 +1205,7 @@ async function boot() {
   /* 2. 不依赖 vendor 的优先启动 */
   initLangToggle();
   initMarquee();
-  initHeroInkReveal();
+  initInkReveals();
   initHeader();
   initWritingCards();
 

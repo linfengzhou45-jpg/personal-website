@@ -774,4 +774,10 @@ L3 scroll-story 4 模式覆盖 ≥ 3：
 - ✅ Convergence（Hero H1 字符汇聚）
 - ❌ WebGL（明确弃用，原因：编辑工业调性不需要 3D 装饰；编号 + 字符巨型已是足够 signature visual）
 
-**致谢**：结构骨架与 marquee + acronym 框架灵感来自 alaric.it.com。Motion 动效逻辑沿用 vue-bits / reactbits 风格（DavidHDev, MIT）。
+### About / 关于我背景
+
+- 使用 `assets/profile-front-wall-relief-v1.png` 作为关于区域的墙雕肖像背景。
+- 桌面端复用 Hero 的 Canvas `destination-out` 水墨揭示；墨点随鼠标扩散并淡去。
+- 背景采用 sticky viewport 层，顶部和底部渐隐回页面底色，保证正文可读。
+- 删除字母 hover 揭示提示与 hover 变色，仅保留滚动进入视区时的状态反馈。
+- 触屏设备关闭 Canvas 遮罩，直接展示静态渐隐背景。
