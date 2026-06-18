@@ -1008,6 +1008,7 @@ function initHeroInkReveal() {
     ctx.globalCompositeOperation = 'source-over';
     ctx.fillStyle = 'rgb(' + MASK + ')';
     ctx.fillRect(0, 0, w, h);
+    canvas.style.background = 'none';  /* CSS 底色使命完成，交给 canvas 接管 */
   }
   resize();
   window.addEventListener('resize', resize);
