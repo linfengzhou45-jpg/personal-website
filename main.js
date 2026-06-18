@@ -1,5 +1,5 @@
 /* ============================================================
-   ZERO 初号 · v2.1 (Wave-1)
+   L.F. ZHOU · v2.1 (Wave-1)
    - CN/EN 切换（基于 :root[lang] CSS 切换）
    - 重排后的 section 适配
    - Work 横向看板按钮翻页（基础版，Wave 2 增强）
@@ -972,151 +972,73 @@ function initSmoothScroll() {
    ============================================================ */
 /* ============================================================
    HERO 墨迹刮开效果
-   鼠标滑过 Hero 区域时，Canvas 遮罩被打洞，露出底层背景图。
-   洞口像墨水扩散：从小点→不规则扩大→淡出消失。
+   用单个 radial-gradient 跟随鼠标，鼠标停止后渐隐消失。
    ============================================================ */
 function initHeroInkReveal() {
   const hero = document.getElementById('hero');
-  const canvas = document.getElementById('heroMask');
-  if (!hero || !canvas) return;
+  const mask = document.getElementById('heroMask');
+  if (!hero || !mask) return;
 
-  /* 仅在有鼠标的设备上启用（触屏设备 CSS 已隐藏 canvas） */
   const canHover = window.matchMedia('(hover: hover)').matches;
   if (!canHover) return;
 
-  const ctx = canvas.getContext('2d');
-  if (!ctx) return;
+  const RADIUS = 220;       // 鼠标周围露出区域的半径 px
+  const FADE_MS = 800;      // 鼠标停止/离开后遮罩恢复的时间 ms
 
-  /* ---- 可调参数 ---- */
-  const MASK_COLOR = '245, 244, 240';   // --bg: #F5F4F0
-  const R_START    = 8;                  // 墨点初始半径
-  const R_END      = 128;                // 墨点最大半径基准
-  const R_VARY     = 0.45;               // 最大半径随机浮动 ±45%
-  const LIFETIME   = 520;                // 墨点存活时间 ms
-  const STAMP_STEP = 12;                 // 鼠标移动时墨点间距 px
-  const MAX_STAMPS = 160;                // 同时存活墨点上限
-  const DPR        = Math.min(window.devicePixelRatio || 1, 2);
-
+  let mx = -999, my = -999;   // 鼠标在 hero 内的坐标
+  let alpha = 0;               // 当前洞的不透明度 0=全遮 1=全露
+  let targetAlpha = 0;
+  let raf = null;
   let w = 0, h = 0;
 
   function resize() {
     const rect = hero.getBoundingClientRect();
     w = rect.width;
     h = rect.height;
-    canvas.width  = Math.round(w * DPR);
-    canvas.height = Math.round(h * DPR);
-    canvas.style.width  = w + 'px';
-    canvas.style.height = h + 'px';
-    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    ctx.globalCompositeOperation = 'source-over';
-    ctx.fillStyle = 'rgb(' + MASK_COLOR + ')';
-    ctx.fillRect(0, 0, w, h);
   }
   resize();
   window.addEventListener('resize', resize);
 
-  /* ---- 墨点生命周期 ---- */
-  const stamps = [];
-  let lastX = null, lastY = null;
+  function render() {
+    /* 平滑过渡 alpha */
+    alpha += (targetAlpha - alpha) * 0.18;
+    if (Math.abs(alpha - targetAlpha) < 0.005) alpha = targetAlpha;
 
-  function addStamp(x, y) {
-    if (stamps.length >= MAX_STAMPS) stamps.shift();
-    stamps.push({
-      x, y,
-      born:  performance.now(),
-      seed:  Math.random() * Math.PI * 2,
-      rmax:  R_END * (1 - R_VARY + Math.random() * R_VARY),
-    });
-  }
-
-  function stampAlong(x, y) {
-    if (lastX === null) {
-      addStamp(x, y);
-    } else {
-      const dx = x - lastX, dy = y - lastY;
-      const dist = Math.hypot(dx, dy);
-      const steps = Math.max(1, Math.ceil(dist / STAMP_STEP));
-      for (let i = 1; i <= steps; i++) {
-        addStamp(lastX + (dx * i) / steps, lastY + (dy * i) / steps);
-      }
-    }
-    lastX = x;
-    lastY = y;
-  }
-
-  /* 单个墨点：不规则软边圆形，用 destination-out 在遮罩上打洞 */
-  function carveInk(x, y, r, alpha, seed) {
-    const g = ctx.createRadialGradient(x, y, r * 0.25, x, y, r);
-    g.addColorStop(0,    'rgba(0, 0, 0, ' + 0.95 * alpha + ')');
-    g.addColorStop(0.55, 'rgba(0, 0, 0, ' + 0.88 * alpha + ')');
-    g.addColorStop(1,    'rgba(0, 0, 0, 0)');
-    ctx.fillStyle = g;
-    ctx.beginPath();
-    const segs = 32;
-    for (let i = 0; i <= segs; i++) {
-      const a   = (i / segs) * Math.PI * 2;
-      const wob = 0.78
-        + 0.14 * Math.sin(a * 3  + seed)
-        + 0.08 * Math.sin(a * 7  + seed * 2.1)
-        + 0.05 * Math.sin(a * 13 + seed * 0.7);
-      const rr = r * wob;
-      const px = x + Math.cos(a) * rr;
-      const py = y + Math.sin(a) * rr;
-      if (i === 0) ctx.moveTo(px, py);
-      else ctx.lineTo(px, py);
-    }
-    ctx.closePath();
-    ctx.fill();
-  }
-
-  /* ---- 动画循环 ---- */
-  let running = false;
-
-  function loop() {
-    const now = performance.now();
-
-    /* 先用纯色重涂整张遮罩 */
-    ctx.globalCompositeOperation = 'source-over';
-    ctx.fillStyle = 'rgb(' + MASK_COLOR + ')';
-    ctx.fillRect(0, 0, w, h);
-
-    /* 再用 destination-out 把所有存活的墨点挖掉 */
-    ctx.globalCompositeOperation = 'destination-out';
-    for (let i = stamps.length - 1; i >= 0; i--) {
-      const t = (now - stamps[i].born) / LIFETIME;
-      if (t >= 1) { stamps.splice(i, 1); continue; }
-      const ease  = 1 - Math.pow(1 - t, 3);         // easeOutCubic
-      const r     = R_START + (stamps[i].rmax - R_START) * ease;
-      const alpha = 1 - t * t;                       // 渐隐
-      carveInk(stamps[i].x, stamps[i].y, r, alpha, stamps[i].seed);
+    if (alpha < 0.01) {
+      /* 洞完全关闭 → 恢复纯色遮罩，停止渲染 */
+      mask.style.backgroundImage = 'none';
+      mask.style.backgroundColor = '#F5F4F0';
+      raf = null;
+      return;
     }
 
-    if (stamps.length) requestAnimationFrame(loop);
-    else running = false;
+    const px = (mx / w * 100).toFixed(2);
+    const py = (my / h * 100).toFixed(2);
+    /* 中心全透明 → 边缘全遮罩，用 alpha 控制整体强度 */
+    mask.style.backgroundColor = 'transparent';
+    mask.style.backgroundImage =
+      `radial-gradient(circle ${RADIUS}px at ${px}% ${py}%, ` +
+      `rgba(245,244,240,${(1 - alpha).toFixed(3)}) 0%, ` +
+      `rgba(245,244,240,1) ${RADIUS}px)`;
+
+    raf = requestAnimationFrame(render);
   }
 
   function start() {
-    if (!running) { running = true; requestAnimationFrame(loop); }
+    if (!raf) raf = requestAnimationFrame(render);
   }
-
-  /* ---- 事件绑定 ---- */
-  hero.addEventListener('mouseenter', (e) => {
-    const rect = hero.getBoundingClientRect();
-    lastX = e.clientX - rect.left;
-    lastY = e.clientY - rect.top;
-    stampAlong(lastX, lastY);
-    start();
-  });
 
   hero.addEventListener('mousemove', (e) => {
     const rect = hero.getBoundingClientRect();
-    stampAlong(e.clientX - rect.left, e.clientY - rect.top);
+    mx = e.clientX - rect.left;
+    my = e.clientY - rect.top;
+    targetAlpha = 1;
     start();
   });
 
   hero.addEventListener('mouseleave', () => {
-    lastX = null;
-    lastY = null;
+    targetAlpha = 0;
+    start();
   });
 }
 

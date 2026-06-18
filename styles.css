@@ -309,7 +309,7 @@ a { color: inherit; }
   /* Wave 3：会插入 video + canvas */
 }
 
-/* ---- 墨迹刮开效果：底图 + Canvas 遮罩 ---- */
+/* ---- 墨迹刮开效果：底图 + CSS mask 遮罩 ---- */
 .hero__bg {
   position: absolute;
   inset: 0;
@@ -325,6 +325,7 @@ a { color: inherit; }
   z-index: 1;
   pointer-events: none;
   display: block;
+  background-color: #F5F4F0;
 }
 /* 触屏设备：隐藏 canvas，直接露出背景图 */
 @media (hover: none) {

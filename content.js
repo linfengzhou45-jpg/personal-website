@@ -1,5 +1,5 @@
 /* ============================================================
-   ZERO 初号 · 个人站 · 内容配置
+   L.F. ZHOU · 个人站 · 内容配置
    ============================================================
    改这一个文件就能更新整站文字 / 项目 / 链接。改完保存 → 浏览器刷新。
 
@@ -23,10 +23,10 @@ export const CONTENT = {
       zh: 'AI 训练师 × 落地工程师',
       en: 'AI Trainer × Production Engineer',
     },
-    h1: 'ZERO 初号',  // 巨标题，中英共用一个
+    h1: 'L.F. ZHOU',  // 巨标题，中英共用一个
     subtitle: {
-      zh: 'ZERO 初号 — AI 训练师 / 应用落地工程师。\n从 notebook 到 production，让模型在真实业务里 [[活下来]]。',
-      en: 'ZERO — AI Trainer & Production Engineer.\nFrom notebook to production, helping models [[survive]] the real world.',
+      zh: '周连锋 — AI 训练师 / 应用落地工程师。\n从 notebook 到 production，让模型在真实业务里 [[活下来]]。',
+      en: 'Zhou Lianfeng — AI Trainer & Production Engineer.\nFrom notebook to production, helping models [[survive]] the real world.',
     },
     ctaPrimary: {
       label: { zh: '查看作品', en: 'Selected Work' },
