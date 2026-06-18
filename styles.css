@@ -378,6 +378,26 @@ a { color: inherit; }
 }
 .header-contact:hover { background: var(--accent); }
 
+/* Language toggle in header */
+.header-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 12px;
+  font: 500 12px/1 var(--font-mono);
+  letter-spacing: 0.12em;
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  cursor: pointer;
+  transition: border-color var(--dur-base) var(--ease-out-expo);
+}
+.header-lang:hover { border-color: var(--accent); }
+.header-lang__opt { color: var(--ink-muted); transition: color var(--dur-base) var(--ease-out-expo); }
+.header-lang__sep { color: var(--ink-muted); }
+:root[lang="zh"] .header-lang__cn { color: var(--accent); font-weight: 700; }
+:root[lang="en"] .header-lang__en { color: var(--accent); font-weight: 700; }
+
 /* Menu button */
 .menu-button {
   width: 36px;
