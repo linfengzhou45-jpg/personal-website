@@ -55,17 +55,28 @@
 </head>
 <body>
 
-<!-- ================== 左上固定 LOGO ================== -->
-<a href="#top" class="logo-fixed" aria-label="L.F. Zhou — Home">
-  L.F<span class="dot">.</span> ZHOU
-</a>
+<!-- ================== 顶部常驻导航栏 ================== -->
+<nav class="topbar" id="topbar" aria-label="Main navigation">
+  <a href="#top" class="topbar__logo" aria-label="L.F. Zhou — Home">
+    L.F<span class="dot">.</span> ZHOU
+  </a>
 
-<!-- ================== 右上固定 CN/EN 切换 ================== -->
-<button class="lang-toggle" id="lang-toggle" type="button" aria-label="Toggle language">
-  <span class="lang-toggle__opt lang-toggle__cn">CN</span>
-  <span class="lang-toggle__sep">·</span>
-  <span class="lang-toggle__opt lang-toggle__en">EN</span>
-</button>
+  <div class="topbar__nav" id="topbar-nav">
+    <a href="#hero" class="topbar__dot is-active" data-section="hero"><span>首页</span></a>
+    <a href="#zhou" class="topbar__dot" data-section="zhou"><span>关于</span></a>
+    <a href="#work" class="topbar__dot" data-section="work"><span>作品</span></a>
+    <a href="#cap" class="topbar__dot" data-section="cap"><span>能力</span></a>
+    <a href="#contact" class="topbar__dot" data-section="contact"><span>联系</span></a>
+  </div>
+
+  <button class="topbar__lang" id="lang-toggle" type="button" aria-label="Toggle language">
+    <span class="topbar__lang-opt topbar__lang-cn">CN</span>
+    <span class="topbar__lang-sep">·</span>
+    <span class="topbar__lang-opt topbar__lang-en">EN</span>
+  </button>
+
+  <div class="topbar__progress"><span id="topbar-progress-bar"></span></div>
+</nav>
 
 <main id="top">
 
