@@ -277,6 +277,10 @@ export const CONTENT = {
           zh: '把一个 7B 模型微调到能用 — 我犯过的 5 个错',
           en: 'Fine-tuning a 7B model into something usable — five mistakes I made',
         },
+        desc: {
+          zh: '从数据清洗到 LoRA 超参，记录我在微调过程中踩过的坑和最终解决方案。',
+          en: 'From data cleaning to LoRA hyperparams, the pitfalls I hit and how I solved them.',
+        },
         tags: ['Fine-tune', 'Lessons'],
         url: '#',
       },
@@ -285,6 +289,10 @@ export const CONTENT = {
         title: {
           zh: 'Production RAG 不是 Pinecone + GPT-4 —— 真正在跑的系统长什么样',
           en: 'Production RAG is not Pinecone + GPT-4 — what a real running system actually looks like',
+        },
+        desc: {
+          zh: '拆解一个真实生产环境的 RAG 架构：向量库选型、reranking pipeline、监控告警。',
+          en: 'Breaking down a real production RAG: vector store selection, reranking pipeline, monitoring.',
         },
         tags: ['RAG', 'Architecture'],
         url: '#',
@@ -295,6 +303,10 @@ export const CONTENT = {
           zh: 'Eval 是脚手架，不是装饰 —— 一份能让团队复用的评测协议',
           en: 'Eval is scaffolding, not decoration — a reusable team protocol',
         },
+        desc: {
+          zh: '为什么大多数 eval 只是摆设，以及如何设计一套团队真正会用的评测流程。',
+          en: 'Why most evals are decoration, and how to design one your team will actually use.',
+        },
         tags: ['Eval', 'Practice'],
         url: '#',
       },
@@ -303,6 +315,10 @@ export const CONTENT = {
         title: {
           zh: 'From Prompt to Pipeline —— 让 LLM 应用工程化的 7 个习惯',
           en: 'From Prompt to Pipeline — 7 habits that turn LLM apps into engineering',
+        },
+        desc: {
+          zh: '从 prompt 调优到端到端 pipeline，LLM 应用从 demo 走向生产的 7 个关键习惯。',
+          en: 'From prompt tuning to end-to-end pipeline: 7 key habits for production LLM apps.',
         },
         tags: ['Engineering'],
         url: '#',

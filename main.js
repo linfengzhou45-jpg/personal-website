@@ -269,18 +269,23 @@ function renderWriting(c) {
 
   const list = document.querySelector('.writing-list');
   if (!list || !Array.isArray(c.items)) return;
-  list.innerHTML = c.items.map(item => {
-    const href = item.url || '#';
-    const target = (href.startsWith('http') || href.startsWith('//')) ? ' target="_blank" rel="noreferrer"' : '';
+  list.innerHTML = c.items.map((item, idx) => {
+    const num = String(idx + 1).padStart(2, '0');
     return `
-      <li class="writing-item">
-        <a href="${href}" class="writing-link"${target}>
-          <span class="writing-link__date">${item.date || ''}</span>
-          <span class="writing-link__title">${rb(item.title)}</span>
-          <span class="writing-link__tags">${(item.tags || []).map(t => `<span class="tag">${t}</span>`).join(' ')}</span>
-          ${ARROW_SVG_WRITE}
-        </a>
-      </li>
+      <div class="writing-card" data-writing>
+        <div class="writing-card__top">
+          <span class="writing-card__num">${num}</span>
+          <span class="writing-card__date">${item.date || ''}</span>
+          <h3 class="writing-card__title">${rb(item.title)}</h3>
+          <div class="writing-card__tags">${(item.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}</div>
+          <span class="writing-card__arrow">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+          </span>
+        </div>
+        <div class="writing-card__body">
+          <p class="writing-card__desc">${rb(item.desc || '')}</p>
+        </div>
+      </div>
     `;
   }).join('');
 }
@@ -1157,6 +1162,19 @@ function initHeader() {
   }
 }
 
+/* ============================================================
+   WRITING CARDS — 点击展开/收起
+   ============================================================ */
+function initWritingCards() {
+  const list = document.querySelector('.writing-list');
+  if (!list) return;
+  list.addEventListener('click', (e) => {
+    const card = e.target.closest('.writing-card');
+    if (!card) return;
+    card.classList.toggle('is-open');
+  });
+}
+
 async function boot() {
   /* 1. 先从 content.js 渲染所有 section（在任何 init 之前重建 DOM） */
   await renderContent();
@@ -1166,6 +1184,7 @@ async function boot() {
   initMarquee();
   initHeroInkReveal();
   initHeader();
+  initWritingCards();
 
   /* Work 看板不依赖 vendor（纯 CSS 3D + state），随时可启 */
   initWorkRail();
