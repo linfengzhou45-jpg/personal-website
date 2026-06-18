@@ -1108,48 +1108,6 @@ function initHeroInkReveal() {
   });
 }
 
-/* ============================================================
-   TOPBAR — 滚动进度条 + section 追踪
-   ============================================================ */
-function initTopbar() {
-  const bar = document.getElementById('topbar-progress-bar');
-  const dots = document.querySelectorAll('.topbar__dot');
-  if (!bar || !dots.length) return;
-
-  const sections = [];
-  dots.forEach(dot => {
-    const id = dot.getAttribute('data-section');
-    const el = document.getElementById(id);
-    if (el) sections.push({ id, el, dot });
-  });
-
-  function update() {
-    const scrollTop = window.scrollY;
-    const docH = document.documentElement.scrollHeight - window.innerHeight;
-    const pct = docH > 0 ? Math.min(scrollTop / docH * 100, 100) : 0;
-    bar.style.width = pct + '%';
-
-    /* 找到当前可见的 section */
-    const offset = 120;  /* topbar 高度 + 余量 */
-    let current = sections[0];
-    for (const s of sections) {
-      if (s.el.getBoundingClientRect().top <= offset) current = s;
-    }
-    dots.forEach(d => d.classList.remove('is-active'));
-    if (current) current.dot.classList.add('is-active');
-  }
-
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => { update(); ticking = false; });
-      ticking = true;
-    }
-  }, { passive: true });
-
-  update();
-}
-
 async function boot() {
   /* 1. 先从 content.js 渲染所有 section（在任何 init 之前重建 DOM） */
   await renderContent();
@@ -1158,7 +1116,6 @@ async function boot() {
   initLangToggle();
   initMarquee();
   initHeroInkReveal();
-  initTopbar();
 
   /* Work 看板不依赖 vendor（纯 CSS 3D + state），随时可启 */
   initWorkRail();
