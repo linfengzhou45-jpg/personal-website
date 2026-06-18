@@ -483,7 +483,7 @@ body.menu-open .menu-overlay {
 }
 .menu-links a:hover {
   padding-left: 16px;
-  color: var(--accent);
+  color: #fff;
 }
 .menu-links span {
   font: 700 12px/1 var(--font-mono);
