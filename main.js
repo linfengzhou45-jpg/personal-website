@@ -1176,10 +1176,10 @@ async function boot() {
   const gsap = window.gsap;
   const ScrollTrigger = window.ScrollTrigger;
 
-  /* 等待 splash 2 秒 + 淡出完成后，再播放字母动效 */
+  /* 等待 splash 1 秒 + 淡出完成后，再播放字母动效 */
   const loader = document.getElementById('page-loader');
   await new Promise(resolve => {
-    const delay = setTimeout(resolve, 2000);
+    const delay = setTimeout(resolve, 1000);
     /* 如果 3 秒已过但 vendor 还没好，等 vendor；如果 vendor 先好，等 3 秒 */
   });
   if (loader) {
