@@ -297,6 +297,8 @@ a { color: inherit; }
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  isolation: isolate;
 }
 .hero__top { padding-top: 88px; }
 .hero__media {
@@ -305,6 +307,28 @@ a { color: inherit; }
   z-index: 0;
   pointer-events: none;
   /* Wave 3：会插入 video + canvas */
+}
+
+/* ---- 墨迹刮开效果：底图 + Canvas 遮罩 ---- */
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url('./assets/hero-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.hero__mask {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  display: block;
+}
+/* 触屏设备：隐藏 canvas，直接露出背景图 */
+@media (hover: none) {
+  .hero__mask { display: none; }
 }
 .hero__inner {
   position: relative;
