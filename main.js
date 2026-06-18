@@ -1131,13 +1131,21 @@ async function boot() {
   const gsap = window.gsap;
   const ScrollTrigger = window.ScrollTrigger;
 
-  /* 原生滚动 —— ScrollTrigger 自动监听 window scroll 事件，无需额外接线 */
+  /* 等待 splash 3 秒 + 淡出完成后，再播放字母动效 */
+  const loader = document.getElementById('page-loader');
+  await new Promise(resolve => {
+    const delay = setTimeout(resolve, 3000);
+    /* 如果 3 秒已过但 vendor 还没好，等 vendor；如果 vendor 先好，等 3 秒 */
+  });
+  if (loader) {
+    loader.classList.add('is-hidden');
+    await new Promise(r => setTimeout(r, 750)); /* 等淡出动画结束 */
+  }
 
   initHeroEntrance(gsap);
   initScrollText(gsap);
   initZhou(gsap, ScrollTrigger);
   initMarqueeBoost();
-  /* Gmail 不再用磁吸 —— 让它和其他联系方式 hover 行为统一（CSS translateX 4px） */
   initSharpProximity();
   initSmoothScroll();
 
