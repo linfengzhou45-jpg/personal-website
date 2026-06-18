@@ -845,20 +845,21 @@ function initWorkRail() {
   });
 
   /* 触控板横向滑：deltaX 占主导时翻卡片，纵向输入照常滚页面 */
-  let wheelLock = false;
+  /* 触控板惯性滚动：累积 deltaX，按总量切换多张卡片 */
+  let accDelta = 0;
+  let accTimer = null;
+  const THRESHOLD = 60;  /* 每累积这么多 px 切换一张 */
   section.addEventListener('wheel', (e) => {
-    /* 只在横向输入明显大于纵向时才拦截 */
     if (Math.abs(e.deltaX) <= Math.abs(e.deltaY) * 1.2) return;
     e.preventDefault();
-    if (wheelLock) return;
-    if (e.deltaX > 30 && i < cards.length - 1) {
-      i++; render();
-      wheelLock = true;
-      setTimeout(() => { wheelLock = false; }, 600);
-    } else if (e.deltaX < -30 && i > 0) {
-      i--; render();
-      wheelLock = true;
-      setTimeout(() => { wheelLock = false; }, 600);
+    accDelta += e.deltaX;
+    clearTimeout(accTimer);
+    accTimer = setTimeout(() => { accDelta = 0; }, 200);
+    while (accDelta >= THRESHOLD && i < cards.length - 1) {
+      i++; render(); accDelta -= THRESHOLD;
+    }
+    while (accDelta <= -THRESHOLD && i > 0) {
+      i--; render(); accDelta += THRESHOLD;
     }
   }, { passive: false });
 

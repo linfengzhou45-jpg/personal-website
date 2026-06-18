@@ -576,7 +576,7 @@ body.menu-open .menu-overlay {
   background-repeat: no-repeat;
   /* 图片贴底，宽度撑满，高度等比 */
   background-image:
-    linear-gradient(to bottom, transparent 60%, var(--bg) 100%),
+    linear-gradient(to bottom, transparent 80%, var(--bg) 100%),
     url('./assets/hero-bg.png');
   background-size: auto 100%, auto 100%;
   background-position: center bottom, center bottom;
@@ -790,9 +790,7 @@ body.menu-open .menu-overlay {
   display: block;
   width: clamp(320px, 28vw, 440px);
   padding: 28px 28px 32px;
-  background: rgba(245, 244, 240, 0.82);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  background: rgba(255, 255, 255, 0.65);
   border: 1px solid var(--line-strong);
   border-radius: 10px;
   transform-origin: center center;
