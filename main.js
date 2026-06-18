@@ -825,14 +825,18 @@ function initWorkRail() {
     if (i < cards.length - 1) { i++; render(); }
   });
 
-  cards.forEach((card, idx) => {
-    card.addEventListener('click', (e) => {
-      if (idx === i) return;
-      e.preventDefault();
+  /* 事件委托：点击非当前卡片切换到该卡片 */
+  const deck = section.querySelector('[data-work-deck]');
+  if (deck) {
+    deck.addEventListener('click', (e) => {
+      const card = e.target.closest('.work-card');
+      if (!card) return;
+      const idx = cards.indexOf(card);
+      if (idx === -1 || idx === i) return;
       i = idx;
       render();
     });
-  });
+  }
 
   document.addEventListener('keydown', (e) => {
     if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
