@@ -1108,6 +1108,50 @@ function initHeroInkReveal() {
   });
 }
 
+/* ============================================================
+   HEADER — 滚动进度 + 毛玻璃升降 + 菜单展开
+   ============================================================ */
+function initHeader() {
+  const header = document.querySelector('.site-header');
+  const progressI = document.querySelector('.scroll-progress i');
+  const menuBtn = document.querySelector('.menu-button');
+  const menuOverlay = document.querySelector('.menu-overlay');
+  if (!header || !progressI) return;
+
+  /* 滚动进度 + header 毛玻璃 */
+  let queued = false;
+  window.addEventListener('scroll', () => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => {
+      const top = window.scrollY;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      progressI.style.transform = 'scaleX(' + (max > 0 ? top / max : 0) + ')';
+      header.dataset.elevated = top > 16 ? 'true' : 'false';
+      queued = false;
+    });
+  }, { passive: true });
+
+  /* 菜单展开/收起 */
+  if (menuBtn && menuOverlay) {
+    const setOpen = (open) => {
+      document.body.classList.toggle('menu-open', open);
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.setAttribute('aria-label', open ? '关闭菜单' : '打开菜单');
+      menuOverlay.setAttribute('aria-hidden', String(!open));
+    };
+    menuBtn.addEventListener('click', () => {
+      setOpen(!document.body.classList.contains('menu-open'));
+    });
+    menuOverlay.querySelectorAll('.menu-links a').forEach(link => {
+      link.addEventListener('click', () => setOpen(false));
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') setOpen(false);
+    });
+  }
+}
+
 async function boot() {
   /* 1. 先从 content.js 渲染所有 section（在任何 init 之前重建 DOM） */
   await renderContent();
@@ -1116,6 +1160,7 @@ async function boot() {
   initLangToggle();
   initMarquee();
   initHeroInkReveal();
+  initHeader();
 
   /* Work 看板不依赖 vendor（纯 CSS 3D + state），随时可启 */
   initWorkRail();

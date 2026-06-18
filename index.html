@@ -62,17 +62,50 @@
   <div class="loader-line"><i></i></div>
 </div>
 
-<!-- ================== 左上固定 LOGO ================== -->
-<a href="#top" class="logo-fixed" aria-label="L.F. Zhou — Home">
-  L.F<span class="dot">.</span> ZHOU
-</a>
+<!-- ================== 滚动进度条 ================== -->
+<div class="scroll-progress" aria-hidden="true"><i></i></div>
 
-<!-- ================== 右上固定 CN/EN 切换 ================== -->
-<button class="lang-toggle" id="lang-toggle" type="button" aria-label="Toggle language">
-  <span class="lang-toggle__opt lang-toggle__cn">CN</span>
-  <span class="lang-toggle__sep">·</span>
-  <span class="lang-toggle__opt lang-toggle__en">EN</span>
-</button>
+<!-- ================== 顶部导航栏 ================== -->
+<header class="site-header" data-elevated="false">
+  <a class="brand" href="#top" aria-label="L.F. Zhou — Home">
+    <span class="brand-mark"></span>
+    <span>L.F. ZHOU</span>
+  </a>
+  <nav class="nav-links" aria-label="主导航">
+    <a href="#work">作品</a>
+    <a href="#zhou">关于</a>
+    <a href="#cap">能力</a>
+  </nav>
+  <div class="header-actions">
+    <a class="header-contact" href="#contact">来聊聊 ↗</a>
+    <button class="menu-button" type="button" aria-label="打开菜单" aria-expanded="false">
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ================== 展开菜单 ================== -->
+<aside class="menu-overlay" aria-hidden="true">
+  <div class="menu-inner">
+    <p class="menu-label">Navigation / 2026</p>
+    <nav class="menu-links" aria-label="展开导航">
+      <a href="#top"><span>01</span>首页</a>
+      <a href="#zhou"><span>02</span>关于</a>
+      <a href="#work"><span>03</span>作品</a>
+      <a href="#cap"><span>04</span>能力</a>
+      <a href="#stack"><span>05</span>技术栈</a>
+      <a href="#contact"><span>06</span>联系</a>
+    </nav>
+    <div class="menu-footer">
+      <button class="menu-lang" id="lang-toggle" type="button" aria-label="Toggle language">
+        <span class="menu-lang__opt menu-lang__cn">CN</span>
+        <span class="menu-lang__sep">·</span>
+        <span class="menu-lang__opt menu-lang__en">EN</span>
+      </button>
+    </div>
+  </div>
+</aside>
 
 <main id="top">
 
